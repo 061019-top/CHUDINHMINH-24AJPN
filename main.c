@@ -1,82 +1,88 @@
-#include <stdio.h>
+ #include <stdio.h>
 #include <stdlib.h>
-#include<string.h>
-#include "functions.h" 
-
-/* run this program using the console pauser or add your own getch, system("pause") or input loop */
+#include <string.h>
+#include "functions.h"
 
 int main(int argc, char *argv[]) {
-
-   Student students[100]; 
-int studentCount = 0;
-
-int main(int argc, char *argv[]) {
-	int choice;
-	int choiceAdmin;
-	int choicestudent;
-    int n = 0;  
-    int maxSize = 100;
-
+	int chRole, chA1, chA2, length=0;
+	int find, found;
+	Student student[100];
 	do{
-	   startTheProgram();
-	   scanf("%d",&choice);
-	switch(choice){
-		case 1:
+		system("cls");
+		roleMenu();
+		printf("Enter Your Choice: ");
+		scanf("%d", &chRole);
+		if(chRole==1){
 			do{
-				menuAdmin();
-				scanf("%d",&choiceAdmin);
-			    	switch(choiceAdmin){
-			    		
-			    		
+				system("cls");
+				manageMenu();
+				printf("Enter Your Choice: ");
+				scanf("%d", &chA1);
+				switch(chA1){
 					case 1:
-	                       do{
-				              studentManagement();
-				              scanf("%d",&choicestudent);
-			    	         switch(choicestudent){
-					             case 1:
-					                //inputStudentInfo(students,&n);
-			                       break;
-			                     case 2:
-			                     	 printStudents(students, n);
-			                       break;
-	                             case 3:
-	                             	 //addStudent(students, &n);
-	                               break;
-			                     case 4:
-			                       break;
-			                     case 5:
-			                       break;
-			                     default:
-			                       invalidSelection();
-			                  	}
-			                  }while(choiceAdmin !=0);
-                        
-			          break;
-			        case 2:
-			          break;
-	                case 3:
-				      break;	
-			        case 4:
-			          break;
-			        case 5:
-			          break;
-			        default:
-			          invalidSelection();
+						do{
+							studentMenu();
+							printf("Enter Your Choice: ");
+							scanf("%d", &chA2);
+							system("cls");
+							switch(chA2){
+								case 1:
+									inputStudent(student, &length);
+									break;
+								case 2:
+									if(length==0){
+										printf("\n*0 Students At The Moment*\n");
+									} else{
+										printStudent(student, length);
+									}
+									break;
+								case 3:
+									break;
+								case 4:
+									printf("Enter Student ID: ");
+									scanf("%d", &find);
+									found=-1;
+									for(int i=0;i<length; i++){
+										if(student[i].studentId==find){
+											found=i;
+										}
+									}
+									if(found==-1){
+										printf("\n*Can't Find Student With This ID*\n");
+									} else{
+										printf("  STUDENT INFORMATION\n");
+										printf("================================\n");
+										printf("ID: %d\n", student[found].studentId);
+										printf("Classroom ID: %s\n", student[found].classroomId);
+										printf("Full Name: %s\n", student[found].name);
+										printf("Email: %s\n", student[found].email);
+										printf("Phone Number: %s\n", student[found].phoneNumber);
+										printf("\n***UPDATE INFORMATION***\n\n");
+										getchar();
+										printf("Enter Student's Classroom ID: ");
+										fgets(student[found].classroomId,5,stdin);
+										student[found].classroomId[strcspn(student[found].classroomId,"\n")]='\0';
+										printf("Enter Student's Full Name: ");
+										fgets(student[found].name,30,stdin);
+										student[found].name[strcspn(student[found].name,"\n")]='\0';
+										printf("Enter Student's Email: ");
+										fgets(student[found].email,35,stdin);
+										student[found].email[strcspn(student[found].email,"\n")]='\0';
+										printf("Enter Student's Phone Number: ");
+										fgets(student[found].phoneNumber,15,stdin);
+										student[found].phoneNumber[strcspn(student[found].phoneNumber,"\n")]='\0';
+										printf("\n*Student's Information Changed Successfully*\n"); 
+									}
+									break;
+								case 5:
+									break;
+							}
+						}while(chA2!=0);
+						break;
 				}
-			}while(choiceAdmin !=0);
-			 break;
-		case 2:			
-			 break;	
-		case 3:
-		     break;
-		case 0:
-			endOfTheProgram();
-			 break;	
-		default:
-		   invalidSelection();
-	}
-   }while(choice != 0);  
+			}while(chA1!=0);
+		}
+	}while(chRole!=0);
 
 	return 0;
-
 }
