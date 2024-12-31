@@ -1,6 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
+ #include <stdio.h>
 
 int arr[100];
 int n = 0;
@@ -93,25 +91,20 @@ int tim_kiem() {
     return -1;
 }
 
-bool is_prime(int num) {
-    if (num <= 1) return false;
-    for (int i = 2; i * i <= num; i++) {
-        if (num % i == 0) return false;
-    }
-    return true;
-}
-
 int in_so_nguyen_to() {
-    bool found = false;
     printf("Cac so nguyen to trong mang: ");
     for (int i = 0; i < n; i++) {
-        if (is_prime(arr[i])) {
-            printf("%d ", arr[i]);
-            found = true;
+        int is_prime = 1; 
+        if (arr[i] <= 1) is_prime = 0;
+        for (int j = 2; j * j <= arr[i]; j++) {
+            if (arr[i] % j == 0) {
+                is_prime = 0;
+                break;
+            }
         }
-    }
-    if (!found) {
-        printf("Khong co so nguyen to nao trong mang");
+        if (is_prime) {
+            printf("%d ", arr[i]);
+        }
     }
     printf("\n");
     return 0;
@@ -195,4 +188,3 @@ int main() {
     menu();
     return 0;
 }
-
